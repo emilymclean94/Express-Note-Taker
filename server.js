@@ -3,13 +3,8 @@ const path = require('path');
 const { clog } = require('./Develop/middleware/clog.js');
 const api = require('./Develop/routes/index.js');
 
-
-// TODO: Change to heroku port
+//? Listens to heroku port OR the port we selected
 const PORT = process.env.PORT || 3001;
-
-app.get("/", (req, res) => {
-  //handle root
-});
 
 const app = express();
 
@@ -24,13 +19,18 @@ app.use('/api', api);
 app.use(express.static('public'));
 
 
-
-
-
-// TODO: Update with heroku info?
-app.listen(PORT, () =>
-  console.log(`App listening at ${PORT}`)
+// TODO: GET /notes should return the notes.html file.
+app.get('/notes', (req, res) =>
+  res.sendFile(path.join(__dirname, 'Develop/public/notes.html'))
 );
 
 
-// stuff to commit
+// TODO: GET * should return the index.html file.
+app.get('/index', (req, res) =>
+  res.sendFile(path.join(__dirname, 'Develop/public/index.html'))
+);
+
+
+app.listen(PORT, () =>
+  console.log(`App listening at ${PORT}`)
+);
