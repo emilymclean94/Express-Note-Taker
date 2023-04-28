@@ -1,4 +1,5 @@
 const express = require('express');
+const app = express();
 const path = require('path');
 const { clog } = require('./Develop/middleware/clog.js');
 const api = require('./Develop/routes/index.js');
@@ -6,7 +7,7 @@ const api = require('./Develop/routes/index.js');
 //? Listens to heroku port OR the port we selected
 const PORT = process.env.PORT || 3001;
 
-const app = express();
+
 
 //? Import custom middleware
 app.use(clog);
