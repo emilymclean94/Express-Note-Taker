@@ -20,13 +20,10 @@ app.use('/api', api);
 app.use(express.static('public'));
 
 
-// TODO: GET /notes should return the notes.html file.
 app.get('/notes', (req, res) =>
   res.sendFile(path.join(__dirname, 'Develop/public/notes.html'))
 );
 
-
-// TODO: GET * should return the index.html file.
 app.get('/index', (req, res) =>
   res.sendFile(path.join(__dirname, 'Develop/public/index.html'))
 );

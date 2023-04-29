@@ -1,5 +1,5 @@
 const notes = require('express').Router();
-const { v4: uuidv4 } = require('../helpers/uuid');
+const { v4: uuidv4 } = require('uuid4');
 const { readAndAppend, readFromFile } = require('../helpers/fsUtils');
 
 
@@ -7,8 +7,8 @@ const { readAndAppend, readFromFile } = require('../helpers/fsUtils');
 // TODO: GET /api/notes should read the db.json file and return all saved notes as JSON.
 
 // GET Route for retrieving all the notes
-notes.get('/notes', (req, res) => {
-    console.info(`${req.method} request received for notes`);
+notes.get('/', (req, res) => {
+    // console.info(`${req.method} request received for notes`);
   
     readFromFile('../db/db.json').then((data) => res.json(JSON.parse(data)));
   });
@@ -17,11 +17,13 @@ notes.get('/notes', (req, res) => {
 
 // POST Route for submitting notes
 notes.post('/', (req, res) => {
+    console.log(req.body);
+
     // Destructuring assignment for the items in req.body
     const { title, text } = req.body;
   
     // If all the required properties are present
-    if (title && text) {
+    if (req.body) {
       // Variable for the object we will save
       const newNote = {
         title,
@@ -29,14 +31,8 @@ notes.post('/', (req, res) => {
         note_id: uuidv4(),
       };
   
-      readAndAppend(newNote, './db.json');
-  
-      const response = {
-        status: 'success',
-        body: newNote,
-      };
-  
-      res.json(response);
+      readAndAppend(newNote, './db/db.json');
+      res.json('Note Added!');
     } else {
       res.json('Error in posting new note');
     }
