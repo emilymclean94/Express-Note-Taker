@@ -14,6 +14,11 @@ This project is a note taker app that allows the user to enter a title and descr
 ## Usage
 Click 'Get Started' to access the notes app. Once on the app, enter a title and the content of your note. Then click the save icon. Your note will be saved in the left sidebar where you can delete it or click on it again to review it.
 
+[Click here](https://still-earth-99016.herokuapp.com/) to see the deployed application.
+
+![screenshot of note taker home](/Assets/noteTaker-Home.png)
+
+![screenshot of note taker note page](/Assets/noteTaker-Notes.png)
 
 ## License
 To learn more about the license used in this project [click here](https://opensource.org/licenses/MIT).
