@@ -7,7 +7,7 @@ const { readAndAppend, readFromFile } = require('../helpers/fsUtils');
 // TODO: GET /api/notes should read the db.json file and return all saved notes as JSON.
 
 // GET Route for retrieving all the notes
-notes.get('/', (req, res) => {
+notes.get('/notes', (req, res) => {
     // console.info(`${req.method} request received for notes`);
   
     readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
@@ -16,7 +16,7 @@ notes.get('/', (req, res) => {
 // TODO:  POST /api/notes should receive a new note to save on the request body, add it to the db.json file, and then return the new note to the client. You'll need to find a way to give each note a unique id when it's saved (look into npm packages that could do this for you).
 
 // POST Route for submitting notes
-notes.post('/', (req, res) => {
+notes.post('/notes', (req, res) => {
     console.log(req.body);
 
     const { title, text } = req.body;
