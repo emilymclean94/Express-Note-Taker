@@ -1,6 +1,6 @@
 const notes = require('express').Router();
 const uuid = require('../helpers/uuid');
-const { readAndAppend, readFromFile } = require('../helpers/fsUtils');
+const { readAndAppend, readFromFile, writeToFile } = require('../helpers/fsUtils');
 
 
 
@@ -9,11 +9,22 @@ const { readAndAppend, readFromFile } = require('../helpers/fsUtils');
 // GET Route for retrieving all the notes
 notes.get('/notes', (req, res) => {
     // console.info(`${req.method} request received for notes`);
-  
+
     readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
   });
 
-// TODO:  POST /api/notes should receive a new note to save on the request body, add it to the db.json file, and then return the new note to the client. You'll need to find a way to give each note a unique id when it's saved (look into npm packages that could do this for you).
+//GET route for getting one noteF
+notes.get('/:note_id', (req, res) => {
+  const noteId = req.params.note_id;
+  readFromFile('./db/db.json')
+    .then((data) => JSON.parse(data))
+    .then((json) => {
+      const result = json.filter((note) => note.note_id === noteId);
+      return result
+        ? res.json(result)
+        : res.json('No note with that ID');
+    });
+});
 
 // POST Route for submitting notes
 notes.post('/notes', (req, res) => {
@@ -33,6 +44,22 @@ notes.post('/notes', (req, res) => {
     } else {
       res.json('Error in posting new note');
     }
+  });
+
+  notes.delete('/:note_id', (req, res) => {
+    const noteId = req.params.note_id;
+    readFromFile('./db/db.json')
+      .then((data) => JSON.parse(data))
+      .then((json) => {
+        // Make a new array of all notes except the one with the ID provided in the URL
+        const result = json.filter((note) => note.note_id !== noteId);
+  
+        // Save that array to the filesystem
+        writeToFile('./db/db.json', result);
+  
+        // Respond to the DELETE request
+        res.json(`Item ${noteId} has been deleted 🗑️`);
+      });
   });
 
 module.exports = notes;
