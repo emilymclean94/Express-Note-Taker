@@ -14,7 +14,7 @@ notes.get('/notes', (req, res) => {
   });
 
 //GET route for getting one noteF
-notes.get('/:note_id', (req, res) => {
+notes.get('/notes/:note_id', (req, res) => {
   const noteId = req.params.note_id;
   readFromFile('./db/db.json')
     .then((data) => JSON.parse(data))
@@ -46,7 +46,7 @@ notes.post('/notes', (req, res) => {
     }
   });
 
-  notes.delete('/:note_id', (req, res) => {
+  notes.delete('/notes/:note_id', (req, res) => {
     const noteId = req.params.note_id;
     readFromFile('./db/db.json')
       .then((data) => JSON.parse(data))
