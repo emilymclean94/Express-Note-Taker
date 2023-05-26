@@ -14,12 +14,12 @@ notes.get('/notes', (req, res) => {
   });
 
 //GET route for getting one noteF
-notes.get('/notes/:note_id', (req, res) => {
-  const noteId = req.params.note_id;
+notes.get('/notes/:id', (req, res) => {
+  const noteId = req.params.id;
   readFromFile('./db/db.json')
     .then((data) => JSON.parse(data))
     .then((json) => {
-      const result = json.filter((note) => note.note_id === noteId);
+      const result = json.filter((note) => note.id === noteId);
       return result
         ? res.json(result)
         : res.json('No note with that ID');
@@ -36,7 +36,7 @@ notes.post('/notes', (req, res) => {
       const newNote = {
         title,
         text,
-        note_id: uuid(),
+        id: uuid(),
       };
   
       readAndAppend(newNote, './db/db.json');
@@ -46,13 +46,13 @@ notes.post('/notes', (req, res) => {
     }
   });
 
-  notes.delete('/notes/:note_id', (req, res) => {
-    const noteId = req.params.note_id;
+  notes.delete('/notes/:id', (req, res) => {
+    const noteId = req.params.id;
     readFromFile('./db/db.json')
       .then((data) => JSON.parse(data))
       .then((json) => {
         // Make a new array of all notes except the one with the ID provided in the URL
-        const result = json.filter((note) => note.note_id !== noteId);
+        const result = json.filter((note) => note.id !== noteId);
   
         // Save that array to the filesystem
         writeToFile('./db/db.json', result);

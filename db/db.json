@@ -1,17 +1,22 @@
 [
     {
-        "title": "Meeting Notes",
-        "text": "aljslksjdfhlkdajg",
-        "note_id": "0fe6"
-    },
-    {
-        "title": "Doctor Appointment",
-        "text": "sdgkajs;dflk'apsd;lkgadlfj",
-        "note_id": "0f07"
-    },
-    {
         "title": "Budgeting To Do",
         "text": "Do the Budget!",
-        "note_id": "5a41"
+        "id": "5a41"
+    },
+    {
+        "title": "Finance Meeting",
+        "text": "Finances",
+        "id": "20a5"
+    },
+    {
+        "title": "Vet Appointment",
+        "text": "Take Roger to to vet Thursday.",
+        "id": "787c"
+    },
+    {
+        "title": "Groceries",
+        "text": "-Apples\n-Eggs\n-Bagels\n-Cream cheese\n-Juice",
+        "id": "ee11"
     }
 ]
