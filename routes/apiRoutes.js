@@ -1,5 +1,5 @@
 const notes = require('express').Router();
-const { v4: uuidv4 } = require('uuid4');
+const uuid = require('../helpers/uuid');
 const { readAndAppend, readFromFile } = require('../helpers/fsUtils');
 
 
@@ -10,7 +10,7 @@ const { readAndAppend, readFromFile } = require('../helpers/fsUtils');
 notes.get('/', (req, res) => {
     // console.info(`${req.method} request received for notes`);
   
-    readFromFile('../db/db.json').then((data) => res.json(JSON.parse(data)));
+    readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
   });
 
 // TODO:  POST /api/notes should receive a new note to save on the request body, add it to the db.json file, and then return the new note to the client. You'll need to find a way to give each note a unique id when it's saved (look into npm packages that could do this for you).
@@ -19,16 +19,13 @@ notes.get('/', (req, res) => {
 notes.post('/', (req, res) => {
     console.log(req.body);
 
-    // Destructuring assignment for the items in req.body
     const { title, text } = req.body;
   
-    // If all the required properties are present
     if (req.body) {
-      // Variable for the object we will save
       const newNote = {
         title,
         text,
-        note_id: uuidv4(),
+        note_id: uuid(),
       };
   
       readAndAppend(newNote, './db/db.json');

@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const { clog } = require('./Develop/middleware/clog.js');
-const api = require('./Develop/routes/index.js');
+const { clog } = require('./middleware/clog.js');
+const api = require('./routes/index.js');
 
 //? Listens to heroku port OR the port we selected
 const PORT = process.env.PORT || 3001;
@@ -20,16 +20,15 @@ app.use('/api', api);
 app.use(express.static('public'));
  
 
-// GET route for notes page
-app.get('/notes', (req, res) =>
-  res.sendFile(path.join(__dirname, '/Develop/public/notes.html'))
-);
-
 //GET route for homepage
 app.get('*', (req, res) =>
-  res.sendFile(path.join(__dirname, '/Develop/public/index.html'))
+  res.sendFile(path.join(__dirname, '/public/index.html'))
 );
 
+// GET route for notes page
+app.get('/notes', (req, res) =>
+  res.sendFile(path.join(__dirname, '/public/notes.html'))
+);
 
 app.listen(PORT, () =>
   console.log(`App listening at ${PORT}`)
